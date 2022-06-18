@@ -1,6 +1,6 @@
-import './App.css';
+import React from 'react'
 
-function App() {
+export function Container({ title, children }) {
   return (
     <>
       <header className="text-center">
@@ -8,11 +8,10 @@ function App() {
       </header>
       <section className='container'>
         <header className='text-center m-1'>
-          <h3>++ Crypto List ++</h3>
+          <h3>{title}</h3>
         </header>
+        {children}
       </section>
     </>
   );
 }
-
-export default App;
