@@ -12,36 +12,15 @@ import { useAxios, loadData } from '../Hooks/Axios';
 const MemoContainer = memo(Container)
 const MemoLoader = memo(Loader)
 
-const loadCurrencyRowFromData = (data, filter, handleShowDetails) => {
-  return data.map(currency => {
-    if(
-      currency.name.toLowerCase().indexOf(filter) >= 0 || 
-      currency.symbol.toLowerCase().indexOf(filter) >= 0
-    ) {
-      return <CurrencyRow 
-        key={currency.id} 
-        currency={currency} 
-        showDetails={handleShowDetails} 
-      />
-    }
-    return null
-  })
-}
-
 export function Home() {
   const title = 'Crypto Currency Info',
-    navigate = useNavigate(),
-    [state, setState] = useAxios('https://api.coincap.io/v2/assets?limit=5'),
+    [state, setState] = useAxios('https://api.coincap.io/v2/assets?limit=5&order=rank'),
     [filter, setFilter] = useState('')
 
   const refreshData = useCallback((e) => {
     e.preventDefault()
-    loadData('https://api.coincap.io/v2/assets?limit=5', setState)
+    loadData('https://api.coincap.io/v2/assets?limit=5&order=rank', setState)
   }, [setState])
-
-  const handleShowDetails = useCallback(function(id) {
-    navigate('/currency/' + id)
-  }, [navigate])
 
   const filterCurrency = useCallback((keyword) => {
     setFilter(keyword)
@@ -51,10 +30,9 @@ export function Home() {
 
   return (
     <MemoContainer title={title}>
-
       <Filter onChange={filterCurrency} />
       
-      <CurrencyTable currencyRows={loadCurrencyRowFromData(state.data, filter, handleShowDetails)} />
+      <CurrencyTable data={state.data} setState={setState} filter={filter} />
       
       <div className="text-center">
         <button onClick={refreshData} className="btn btn-outline-primary">

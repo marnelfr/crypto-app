@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useMemo, useState } from 'react';
 
-export function loadData(url = 'https://api.coincap.io/v2/assets?limit=5', action) {
+export function loadData(url = 'https://api.coincap.io/v2/assets?limit=5&order=rank', action) {
   axios.get(url).then(response => {
     if(response.status === 200) {
       action(({loading: false, data: response.data.data}))
