@@ -1,8 +1,5 @@
-import axios from 'axios';
-import { memo, useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { memo, useCallback, useState } from 'react';
 import { Container } from '../Components/Container';
-import { CurrencyRow } from '../Components/CurrencyRow';
 import CurrencyTable from '../Components/CurrencyTable';
 import Filter from '../Components/Filter';
 import Loader from '../Components/Loader';
@@ -14,12 +11,12 @@ const MemoLoader = memo(Loader)
 
 export function Home() {
   const title = 'Crypto Currency Info',
-    [state, setState] = useAxios('https://api.coincap.io/v2/assets?limit=5&order=rank'),
+    [state, setState] = useAxios('https://api.coincap.io/v2/assets?limit=15&order=rank'),
     [filter, setFilter] = useState('')
 
   const refreshData = useCallback((e) => {
     e.preventDefault()
-    loadData('https://api.coincap.io/v2/assets?limit=5&order=rank', setState)
+    loadData('https://api.coincap.io/v2/assets?limit=15&order=rank', setState)
   }, [setState])
 
   const filterCurrency = useCallback((keyword) => {
