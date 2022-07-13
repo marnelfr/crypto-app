@@ -31,7 +31,7 @@ export function Home() {
       
       <CurrencyTable data={state.data} setState={setState} filter={filter} />
       
-      <div className="text-center">
+      <div className="text-center pb-3">
         <button onClick={refreshData} className="btn btn-outline-primary">
           Refresh
         </button>

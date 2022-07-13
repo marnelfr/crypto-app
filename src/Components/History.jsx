@@ -26,14 +26,15 @@ export default function History({currencyId}) {
       text: ""
     },
     axisY: {
-      title: "Price"
+      title: "Price",
+      prefix: '$'
     },
     axisX: {
       title: "Timeline"
     },
     data: [{
       type: "line",
-      toolTipContent: "Price {x}: {y}$",
+      toolTipContent: "Price {x}: ${y}",
       dataPoints: state.data.map(datum => ({x: new Date(datum.time), y: (datum.priceUsd*1).toFixed(2)*1}))
     }]
   }), [state])
